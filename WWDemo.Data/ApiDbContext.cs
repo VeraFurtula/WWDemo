@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WWDemo.Data.Configurations;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
+using System.Configuration;
 using WWDemo.Models;
 
 namespace WWDemo.Data
@@ -14,7 +16,7 @@ namespace WWDemo.Data
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProductConfiguration).Assembly);
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }
