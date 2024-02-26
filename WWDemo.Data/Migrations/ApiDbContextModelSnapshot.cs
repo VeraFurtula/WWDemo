@@ -42,9 +42,6 @@ namespace WWDemo.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SerialNumber")
-                        .IsUnique();
-
                     b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
