@@ -1,13 +1,29 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using WWDemo.Application.DTOs;
+using WWDemo.Application.Products.Queries.GetAllProducts;
+using WWDemo.Data.Products;
 
 namespace WWDemo.Application.Products.Queries.GetProductBySerialNumber
 {
-    public class GetProductsBySerialNumberHandler : IRequestHandler<GetProductBySerialNumberQuery, ProductRepresentation>
+    public class GetProductBySerialNumber : IRequestHandler<GetProductBySerialNumberQuery, DTOs.ProductRepresentation>
     {
-        public Task<ProductRepresentation> Handle(GetProductBySerialNumberQuery request, CancellationToken cancellationToken)
+        private readonly IProductRepository _productRepository;
+        private readonly IMapper _mapper;
+
+        public GetProductBySerialNumber(IProductRepository productRepository, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _productRepository = productRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<DTOs.ProductRepresentation> Handle(GetProductBySerialNumberQuery query, CancellationToken cancellationToken)
+        {
+            var product = await _productRepository.GetProductBySerialNumber(query.SerialNumber!);
+
+            var result = _mapper.Map<Models.Product, DTOs.ProductRepresentation>(product!);
+
+            return result;
         }
     }
 }
