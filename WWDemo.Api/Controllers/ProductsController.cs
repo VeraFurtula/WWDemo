@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 using WWDemo.Api.Requests;
 using WWDemo.Application.DTOs;
 using WWDemo.Application.Products.Commands.AddProduct;
@@ -49,9 +50,8 @@ namespace WWDemo.Api.Controllers
             var result = await _mediator.Send(new GetProductBySerialNumberQuery());// map serial number
             
 			return Ok();
-		}
-
-		[HttpDelete]
+        }
+        [HttpDelete]
 		public async Task<IActionResult> DeleteProduct()
 		{
 			return Ok();
